@@ -49,7 +49,6 @@ env:
   BUILD_CONTEXT_PATH: ./
   NAMESPACE: namespace-workflow-1776175379358
   ENABLENAMESPACECREATION: false
-  AUTH_TYPE: SERVICE_PRINCIPAL
 
 jobs:
   buildImage:
@@ -66,11 +65,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Logs into ACR
-      - name: Log into ACR
-        run: |
-          az acr login -n ${{ env.AZURE_CONTAINER_REGISTRY }}
 
       # Builds and pushes an image up to your Azure Container Registry
       - name: Azure Login
@@ -100,14 +94,6 @@ jobs:
       # Checks out the repository this file is in
       - uses: actions/checkout@v3
 
-      # Logs in with your Azure credentials
-      - name: Azure login
-        uses: azure/login@v2.2.0
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          auth-type: ${{ env.AUTH_TYPE }}
 
       # Use kubelogin to configure your kubeconfig for Azure auth
       - name: Set up kubelogin for non-interactive login
