@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: sra1-app
+  labels:
+    app.kubernetes.io/name: sra1-app
+    app.kubernetes.io/part-of: sra1-app-project
+    kubernetes.azure.com/generator: devhub
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: sra1-app
