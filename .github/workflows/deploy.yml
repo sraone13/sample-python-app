@@ -1,0 +1,28 @@
+name: deploy-app
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to ACR
+        run: az acr login --name sravanaksregistry
+
+      - name: Build Image
+        run: |
+          docker build -t sravanaksregistry.azurecr.io/myapp:${{ github.sha }} .
+
+      - name: Push Image
+        run: |
+          docker push sravanaksregistry.azurecr.io/myapp:${{ github.sha }}
