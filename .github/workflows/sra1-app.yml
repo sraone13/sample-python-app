@@ -67,10 +67,6 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Builds and pushes an image up to your Azure Container Registry
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Login to ACR
         run: az acr login --name sravanaksregistry
