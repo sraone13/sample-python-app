@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sra1-app-config
+  namespace: namespace-workflow-1776175379358
+  labels:
+    app.kubernetes.io/name: sra1-app
+    kubernetes.azure.com/generator: devhub
+data:
